@@ -1,0 +1,96 @@
+/* Reportes
+  --------- 
+*/
+
+/* 
+Son casi similares 
+/*
+Inventariado Inicial
+Agregar bien
+Editar Bien
+Eliminar bien
+*/
+/*
+Ineventariado Fisico
+Agregar
+Editar
+Eliminar
+*/
+//
+/*
+Marca
+Agregar marca
+Editar marca
+Eliminar marca
+*/ 
+
+/*
+Unidad de Medida
+Agregar medida
+Editar meida
+Eliminar medida
+*/
+
+/*
+Personal
+Agregar personal
+Editar personal
+eliminar personal
+*/
+
+/*
+
+*/ 
+
+/*
+Generar  reporte Inicial
+Generar  reporte Fisico
+Generar  reporte de Existencia de Almacen
+*/
+
+
+
+
+
+/*
+
+/*    const [values, setValues] = useState({
+        usua: "",
+        pass: "",
+        showPass: false,
+    });
+
+    const handlePassVisibilty = () => {
+        setValues({
+            ...values,
+            showPass: !values.showPass,
+        });
+    };
+const [username, setUsername] = useState('')
+const [password, setPassword] = useState('')
+const [loginStatus, setLoginStatus] = useState('')
+
+axios.defaults.withCredentials = true;
+
+const loginu = () => {
+    axios.post("http://localhost:8000/login",{
+        username: username,
+        password: password
+    }).then((response) => {
+        if(response.data.message){
+            setLoginStatus(response.data.message)
+        } else {
+            setLoginStatus(response.data[0].username)
+        }
+    })
+}
+
+useEffect(() => {
+axios.post("http://localhost:8000/login").then((response) => {
+    if(response.data.loggedIn == true){
+        setLoginStatus(response.data.user[0].username)
+    }
+})
+},[])*/
+
+*/

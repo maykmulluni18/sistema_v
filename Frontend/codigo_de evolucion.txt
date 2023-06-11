@@ -1,0 +1,82 @@
+
+                                    <div className="inpuntform">
+                                        <label>Almacen</label>
+
+                                        <MultiSelect
+                                            className="complete"
+                                            name="idbienes"
+                                            value={idbienes}
+                                            onChange={handleChange}
+                                        >
+                                            <MenuItem value=' '> </MenuItem>
+                                            {bienes.map((optios) => (
+                                                <MenuItem key={optios.id} value={optios.id}>{optios.description}</MenuItem>
+
+                                            ))}
+                                        </MultiSelect>
+                                    </div>
+
+
+                                    <div className="inpuntform">
+                                        <input type="text" value={idbienes} onChange={handleChange} />
+                                    </div>
+                                    <div className="inpuntform">
+                                        {bienes
+                                            .filter((item) => {
+                                                const searchTerm = value.toLowerCase();
+                                                const descripcion = item.description.toLowerCase();
+                                                return (
+                                                    searchTerm &&
+                                                    descripcion.startsWith(searchTerm) &&
+                                                    descripcion !== searchTerm
+                                                );
+                                            })
+                                            .slice(0, 10)
+                                            .map((item) => (
+                                                <div
+                                                    onClick={() => onSearch(item.description)}
+                                                    className="dropdown-row"
+                                                    key={item.id}
+                                                    value={item.id}
+                                                >
+                                                    {item.description}
+                                                </div>
+                                            ))}
+                                    </div>
+
+                                    <div className='inpuntfrom'>
+                                        <label>Filtrar</label>
+                                        <input
+                                            type="text"
+                                            name='bienes'
+                                            value={idbienes}
+                                            onChange={(e) => setIdbienes(e.target.value)}
+                                        />
+                                        <h2>lista de bienes</h2>
+                                        <ul>
+                                            {bienes.
+                                                filter((data) => data.description.toLowerCase().includes())
+                                                .map((items) => {
+                                                    return (
+                                                        <>
+                                                            <li key={items.id} value={items.id}>{items.description}</li>
+                                                        </>
+                                                    )
+                                                })}
+                                        </ul>
+                                    </div>
+                                    <div className='inpuntfrom'>
+                                        <input type="text" list="data1" placeholder='filtrar'
+                                            value={idbienes}
+                                            onChange={handleChange} />
+                                        <datalist id="data1">
+                                            {
+                                                bienes.map(res => {
+                                                    return (
+                                                        <option key={res.id} value={res.id}> {res.description} </option>
+                                                    )
+                                                })
+                                            }
+
+                                        </datalist>
+                                    </div>

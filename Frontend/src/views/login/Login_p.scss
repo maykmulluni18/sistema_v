@@ -1,0 +1,60 @@
+.cont_login {
+    background-color: rgb(255, 255, 255);
+    top: 64px;
+    //bottom: 0;
+    overflow: hidden;
+    border-right: 0.5px solid rgba(247, 248, 252, 255);
+    min-height: 100vh;
+    max-height: calc(100vh - 9rem);
+    flex: 1;
+    box-shadow: 1px 0px 4px rgb(185, 73, 73);
+    overflow-y: scroll;
+    border-right: 0.5px solid rgba(247, 248, 252, 255);
+    min-height: 100vh;
+
+    .imagen {
+        // background: red;
+        align-items: center;
+
+        img {
+            align-items: center;
+            text-align: center;
+            top: -20%;
+            border: 2px solid rgb(15, 18, 51);
+            border-radius: 50%;
+            width: 50%;
+            height: 50%;
+            cursor: pointer;
+
+        }
+
+        &:hover {
+            color: rgb(118, 124, 184);
+
+        }
+    }
+
+
+    .has-text-centered {
+        color: red;
+        font-weight: 900;
+        text-align: center;
+    }
+
+    .iniciar {
+        background: rgb(40, 19, 81);
+
+        &:hover {
+            background: rgb(40, 19, 81);
+        }
+    }
+
+}
+
+@media screen and (max-width: 1000px) {
+
+    .car_sidebar {
+        display: none !important;
+    }
+
+}

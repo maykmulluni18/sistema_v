@@ -1,0 +1,141 @@
+import express, { response } from "express"
+import cors from 'cors'
+import db from './database/db.js'
+import router from "./routers/routes.js"
+import bodyParser from "body-parser"
+import cookieParser from "cookie-parser"
+import session from "express-session"
+import dotenv from "dotenv"
+import bcrypt from "bcrypt"
+const saltRounds = 10
+dotenv.config()
+
+const app = express()
+app.use(express.json())
+app.use(cors({
+    credentials: true,
+    origin:'http://localhost:8001'
+}))
+app.use(cookieParser())
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(session({
+    secret: process.env.S_SECRET_KEY,
+    resave: false,
+    saveUninitialized: true,
+    saveUnit: false,
+    cookie: {
+        expire: 60 * 60 * 24,
+    }
+})
+)
+
+app.use('/user', router)
+
+app.get("/login", (req, res) => {
+    if (req.session.user) {
+        res.send({ loggedIn: true, user: req.session.user })
+    } else {
+        res.send({ loggedIn: false, })
+    }
+})
+app.post("/login", (req, res) => {
+    const username = req.body.username;
+    const password = req.body.password;
+
+    db.query(
+        "SELECT * FROM usuarioA WHERE username = ?;",
+        username,
+        (err, result) => {
+            if (err) {
+                res.send({ err: err });
+            }
+
+            if (result.length > 0) {
+                bcrypt.compare(password, result[0].password, (error, response) => {
+                    if (response) {
+                        req.session.user = result;
+                        console.log(req.session.user);
+                        res.send(result);
+                    } else {
+                        res.send({ message: "Wrong username/password combination!" });
+                    }
+                });
+            } else {
+                res.send({ message: "User doesn't exist" });
+            }
+        }
+    );
+});
+
+try {
+    await db.authenticate()
+    console.log('Authenticated successfully DB')
+} catch (error) {
+    console.log(`Error conextion DB : ${error}`)
+}
+
+/*app.get('/',(req,res)=>{
+    res.send('Hola mundo')
+})
+*/
+app.listen(8000, () => {
+    console.log('Server Up running in http://localhost:8000/')
+})
+
+
+
+/*const express = require('express') 
+const cors = require('cors')
+const mysql = require('mysql')
+
+app.use(cors())
+const app = express()
+
+const db = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    passsword: '',
+    database: 'sakila'
+})
+
+app.use(express.json())
+
+app.get("/",(req, res)=>{
+    res.json("Hello backend")
+})
+
+app.get("/usuarios",(req, res)=>{
+    const a = "SELECT * FROM usuarios"
+    db.query(a,(err,data)=>{
+        if(err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.post("/addusuario",(req, res)=>{
+    const a = "INSERT INTO usuario_admin (`nombre_usuario`, `email`, `password`) VALUES(?)";
+    const values = ["1","hola@hola.com","1234"]
+
+    db.query(a,[values],(err,data)=>{
+        if(err) return res.json(err)
+        return res.json(data)        
+    })
+})
+
+app.listen(8800,()=>{
+    console.log('Listening on port: ')
+})
+
+//const express = require('express');
+//const cors = require('cors');
+//const path = require('path');
+*/
+
+
+
+"username":12245,
+  "password":"mund"
+
+    "username":22245,
+  "password":"mundo",
+  "confPassword":"mundo"
